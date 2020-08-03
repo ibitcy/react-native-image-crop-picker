@@ -28,7 +28,11 @@ import java.util.UUID;
 class Compression {
 
     File resize(Context context, String originalImagePath, int maxWidth, int maxHeight, int quality) throws IOException {
-        Bitmap original = BitmapFactory.decodeFile(originalImagePath);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        options.inJustDecodeBounds = false;
+        options.inDither = true;
+        Bitmap original = BitmapFactory.decodeFile(originalImagePath, options);
 
         int width = original.getWidth();
         int height = original.getHeight();
